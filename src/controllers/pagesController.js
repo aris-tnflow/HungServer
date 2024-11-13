@@ -37,7 +37,7 @@ const allPage = async (req, res, next) => {
         const totalItems = await pageSchema.countDocuments();
         const data = await pageSchema
             .find({})
-            .sort({ order: -1 })
+            .sort({ dayCreate: -1 })
             .skip(skip)
             .limit(Number(limit))
             .select('-content -edit')
@@ -65,11 +65,11 @@ const allGroupPage = async (req, res, next) => {
         const totalItems = await pageSchema.countDocuments({ group: groupObj._id });
         const data = await pageSchema
             .find({ group: groupObj._id })
-            .sort({ order: -1 })
+            .sort({ dayCreate: -1 })
             .populate('group')
             .skip(skip)
             .limit(Number(limit))
-            .select('-content -edit');
+            .select('-content -edit -order');
 
         res.status(StatusCodes.OK).json({
             totalItems,
@@ -86,14 +86,28 @@ const searchPage = async (req, res, next) => {
     try {
         const { page = 1, limit = 50, ...filters } = req.query;
         const searchCondition = {};
+
         Object.keys(filters).forEach(key => {
             if (key !== 'page' && key !== 'limit') {
-                searchCondition[key] = { $regex: filters[key], $options: 'i' };
+                if (key === 'group') {
+                    // Xử lý đặc biệt cho trường group là ObjectId
+                    searchCondition[key] = filters[key];
+                } else if (filters[key] === 'true' || filters[key] === 'false') {
+                    // Xử lý boolean
+                    searchCondition[key] = filters[key] === 'true';
+                } else {
+                    // Xử lý string với regex
+                    searchCondition[key] = { $regex: filters[key], $options: 'i' };
+                }
             }
         });
+
         if (Object.keys(searchCondition).length === 0) {
-            return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Vui lòng cung cấp điều kiện tìm kiếm.' });
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                message: 'Vui lòng cung cấp điều kiện tìm kiếm.'
+            });
         }
+
         const skip = (page - 1) * limit;
         const totalItems = await pageSchema.countDocuments(searchCondition);
         const data = await pageSchema
@@ -102,6 +116,7 @@ const searchPage = async (req, res, next) => {
             .skip(skip)
             .limit(Number(limit))
             .select('-content -edit');
+
         res.status(StatusCodes.OK).json({
             totalItems,
             totalPages: Math.ceil(totalItems / limit),

@@ -1,0 +1,33 @@
+{
+    "restore-backup": {
+        "time": "0 0 * * 1"
+    },
+    "order": {
+        "time": "0 0 * * 1"
+    },
+    "api-key-google": {
+        "login": "U2FsdGVkX19rc1amEjcy5M7UlI+Gv+CRBSSVKTVDqpqi1120Fe9VQA8YQJp6JR5EgejISI0MT+Ptt5wYunmmqobeb/K78V1tgzqEfKtrfBvV87E3MsSLrhQKn6X46EfA",
+        "sendEmail": {
+            "name": "Chicken War Studio",
+            "user": "admin@chickenwar.vn",
+            "password": "brct txis vhij pvph"
+        }
+    },
+    "payment-bank": {
+        "clientID": "U2FsdGVkX1+eLk+hon9eiK3NvKqmH93CRphub5Wm6vNEvI5VMlj8MgQ8vw6cpLW1+jj4dKe9mkaT2VnGAbiCyg==",
+        "apiKey": "U2FsdGVkX18S5eU6mMsPwI9VJtRt2xWelBoyQGhUx3r2/SqV41sSWzDy+8b3nK6BEhRc8ZXCypWVoGjt9iOZ+Q==",
+        "checksumKey": "U2FsdGVkX1/pL2UwJTBDAnSC558WgQVN7ObsmKXV6ay7YFjZtKfJWFQbVr/zpFTIgTXy2GMiRX1K4wM1FczFe4+GoZiiTGkWz2BYW4MrdNIsvJ+i3BcBlcpOFxL1ze/7"
+    },
+    "payment-momo": {
+        "momoKey1": "U2FsdGVkX18dVFGgFHlck9hH0a4JXLRbr2DtZQyIwvHMb0qc636PGJI/bMYi9RhHg3YR9WVKHwxzV6MfLaNXQQ==",
+        "momoKey2": "U2FsdGVkX19Ip6zbC/0aJGtizJ7xP4ugoZDjVlVXHMp8YjWgpB5p+59o1/ucKi7kl5lZMRAXwBJSFCJWbRselg=="
+    },
+    "payment-zalo": {
+        "zaloKey1": "U2FsdGVkX1/Dim0GUzBzVbezOhzpCHoHMRlh2H3fgzSIl6IX/lSwOEvL2sPdRXZ9lvx2zI/gCsQFQybuNy8+Yw==",
+        "zaloKey2": "U2FsdGVkX1+l2CKxaV+tB4/cpRNgKvlRQ3VTKXf6LNhBu3dD0by7TD9+xkOMvoQDDEDcjf7AQC0DFN9978/b0Q=="
+    },
+    "payment-vnpay": {
+        "vnKey1": "U2FsdGVkX18hLXVBvuaS0/M489/xTjLgFhnxtK9lFxQwmZ5+grZIaqjoIBQmCCEzd7bVv4u8UOjWsntCGZpGTg==",
+        "vnKey2": "U2FsdGVkX1+AyqLd0ZggMIuCQEAaAqxn31ougyIgeUQk3sKiRcEJCfF2vEWkGeWCvtKdaA6Pn1zftsYgLJML4Q=="
+    }
+}

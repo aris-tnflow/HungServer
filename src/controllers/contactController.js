@@ -60,9 +60,11 @@ const put = async (req, res, next) => {
         if (!Array.isArray(jsonData)) {
             jsonData = [jsonData];
         }
-        jsonData.push({ ...data, "Ngày tạo": new Date(), "Cập nhập": new Date() });
-
-        // Ghi dữ liệu mới vào tệp
+        jsonData.push({
+            ...data,
+            "Ngày tạo": new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }),
+            "Cập nhập": new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })
+        });
         fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2), 'utf-8');
         res.status(200).json({ message: 'File updated successfully.', filePath });
     } catch (error) {

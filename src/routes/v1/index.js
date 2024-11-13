@@ -24,7 +24,7 @@ import { contactRouter } from './contactRoute.js'
 import { notificationRouter } from './notificationRoute.js'
 import { inCludeRouter } from './includeRoute.js'
 import { provincesRouter } from './provincesRoute.js'
-
+import { scriptRouter } from './scriptRoute.js'
 import { testRouter } from './testRoute.js'
 
 const router = express.Router();
@@ -41,6 +41,7 @@ router.use('/layout', layoutRouter);
 router.use('/file-manager', fileManagerRouter);
 router.use('/order', orderRouter);
 router.use('/setting', settingRouter);
+router.use('/script', scriptRouter);
 
 router.use('/category-courser', categoryCourserRouter);
 router.use('/courser', courserRouter);

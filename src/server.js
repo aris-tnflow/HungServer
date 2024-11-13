@@ -27,7 +27,7 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // CorsOptions
-app.use(cors()); // corsOptions
+app.use(cors()); // 
 
 // Protect 
 app.use(rateLimiter.All);
@@ -43,25 +43,16 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(compression());
 
 // Routes
-app.use('/v1', V1); // API V1
+app.use('/v2', V1); // API V1
 
 // Error
 app.use(errorHandlingMiddleware);
 app.use((req, res) => {
   res.status(404).json({ message: 'Route not found' });
 });
-// Start server
+
 const PORT = 8082;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-// if (process.env.BUILD_MODE === 'production') {
-//   app.listen(process.env.PORT, () => {
-//     console.log(`Server run on port: ${process.env.PORT}`)
-//   })
-// } else {
-//   app.listen(port, () => {
-//     console.log(`Server is running on port ${PORT}`)
-//   })
-// }

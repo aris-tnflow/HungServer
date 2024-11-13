@@ -67,22 +67,31 @@ const searchOrder = async (req, res, next) => {
     try {
         const { page = 1, limit = 50, ...filters } = req.query;
         const searchCondition = {};
+
         Object.keys(filters).forEach(key => {
             if (key !== 'page' && key !== 'limit') {
-                searchCondition[key] = { $regex: filters[key], $options: 'i' };
+                if (filters[key] === 'true' || filters[key] === 'false') {
+                    searchCondition[key] = filters[key] === 'true';
+                } else {
+                    searchCondition[key] = { $regex: filters[key], $options: 'i' };
+                }
             }
         });
+
         if (Object.keys(searchCondition).length === 0) {
-            return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Vui lòng cung cấp điều kiện tìm kiếm.' });
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                message: 'Vui lòng cung cấp điều kiện tìm kiếm.'
+            });
         }
+
         const skip = (page - 1) * limit;
         const totalItems = await orderModel.countDocuments(searchCondition);
         const data = await orderModel
             .find(searchCondition)
             .sort({ createdAt: -1 })
             .skip(skip)
-            .limit(Number(limit))
-        // .select('-content -edit');
+            .limit(Number(limit));
+
         res.status(StatusCodes.OK).json({
             totalItems,
             totalPages: Math.ceil(totalItems / limit),
@@ -92,8 +101,7 @@ const searchOrder = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
-
+};
 const getOrderByOrderId = async (req, res, next) => {
     try {
         const { orderId } = req.params;
